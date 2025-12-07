@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
+  // StrictMode 严格模式，内容审查
   <StrictMode>
     <App />
   </StrictMode>,

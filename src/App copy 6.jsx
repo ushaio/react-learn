@@ -1,20 +1,16 @@
-import { createContext, Fragment, useState, useContext, Children } from 'react'
+import { createContext, Fragment, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 /**
- * Context 2
+ * Context 1
  * 多层级回传
  */
 
 export function Section({ children }) {
-  const level = useContext(LevelContext)
   return (
     <section className="section">
-      <LevelContext.Provider value={level + 1}>
-        {children}
-      </LevelContext.Provider>
       {children}
     </section>
   )
@@ -25,9 +21,7 @@ export function Section({ children }) {
  * 根据 level 返回不同大小的标题
  * children: 标题内容，即标题的文本
  */
-export function Heading({ children }) {
-  // 使用 useContext 获取 LevelContext
-  const level = useContext(LevelContext) // 默认1
+export function Heading({ level, children }) {
   switch (level) {
     case 1:
       return <h1>{children}</h1>
@@ -44,29 +38,27 @@ export function Heading({ children }) {
   }
 }
 
-const LevelContext = createContext(1)
-
 export default function App() {
   return (
     <>
       <div>
         <Section>
           {/* 一层 */}
-          <Heading>主标题</Heading>
+          <Heading level={1}>主标题</Heading>
           <Section>
             {/* 二层 */}
-            <Heading>副标题</Heading>
-            <Heading>副标题2</Heading>
+            <Heading level={2}>副标题</Heading>
+            <Heading level={2}>副标题2</Heading>
             <Section>
               {/* 三层 */}
-              <Heading>三级标题</Heading>
+              <Heading level={3}>三级标题</Heading>
             </Section>
           </Section>
           {/* 一层 */}
-          <Heading>副标题3</Heading>
-          <Heading>三级标题1</Heading>
-          <Heading>四级标题1</Heading>
-          <Heading>五级标题1</Heading>
+          <Heading level={2}>副标题</Heading>
+          <Heading level={3}>三级标题</Heading>
+          <Heading level={4}>四级标题</Heading>
+          <Heading level={5}>五级标题</Heading>
         </Section>
       </div>
     </>
